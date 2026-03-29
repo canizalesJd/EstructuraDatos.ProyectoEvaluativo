@@ -94,7 +94,7 @@ public class GestionProductos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Cantidad", "Tipo"
+                "ID", "Nombre", "Precio", "Tipo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
