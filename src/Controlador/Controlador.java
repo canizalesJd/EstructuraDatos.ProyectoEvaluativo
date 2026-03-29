@@ -25,21 +25,28 @@ public class Controlador {
     }
     
     // Agregar producto a la lista
-    public void agregarProducto(String nombre, double precio, int cantidad) {
+    public void agregarProducto(String nombre, double precio, String tipo) {
         // Validar datos
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new InputMismatchException(
                 "Error, nombre no debe estar vacio"
             );
         }
-        if (precio < 0 || cantidad < 0) {
+        
+        if (tipo == null || tipo.trim().isEmpty()) {
             throw new InputMismatchException(
-                "Error, el precio y la cantidad deben ser mayores a 0"
+                "Error, debe seleccionar un tipo de reposteria"
+            );
+        }
+        
+        if (precio < 0) {
+            throw new InputMismatchException(
+                "Error, el precio deben ser mayor a 0"
             );
         }
         
         // Crear producto e insertar
-        Producto p = new Producto(contadorId, nombre, precio, cantidad);
+        Producto p = new Producto(contadorId, nombre, precio, tipo);
         listaProductos.insertarOrdenado(p);
         contadorId++;
     }
@@ -65,7 +72,7 @@ public class Controlador {
             datos[fila][0] = actual.data.getId();
             datos[fila][1] = actual.data.getNombre();
             datos[fila][2] = actual.data.getPrecio();
-            datos[fila][3] = actual.data.getCantidad();
+            datos[fila][3] = actual.data.getTipo();
             fila++;
             actual = actual.siguiente;
         }

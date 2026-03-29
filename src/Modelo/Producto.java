@@ -14,21 +14,28 @@ public class Producto {
     private int id;
     private String nombre;
     private double precio;
-    private int cantidad;
+    private String tipo;
+    
+    // Tipo de reposteria
+    public static final String[] TIPOS = {
+        "Dulce",
+        "Salada"
+    };
+    
     
     // Constructor vacio
     public Producto() {
         this.nombre = "";
         this.precio = 0.0;
-        this.cantidad = 0;
+        this.tipo = "";
     }
     
     // Constructor sobrecargado
-    public Producto(int id, String nombre, double precio, int cantidad) {
+    public Producto(int id, String nombre, double precio, String tipo) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
-        this.cantidad = cantidad;
+        this.tipo = tipo;
     }
     
     // Representacion Visual
@@ -37,7 +44,7 @@ public class Producto {
         return "Producto(id: " + this.id + " | " + 
                 "nombre: " + this.nombre + " | " +
                 "precio: " + this.precio + " | " +
-                "cantidad: " + this.cantidad + ")";
+                "tipo: " + this.tipo + ")";
     }
 
     // Getters y Setters
@@ -65,11 +72,11 @@ public class Producto {
         this.precio = precio;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }
