@@ -25,6 +25,7 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         this.controlador = controlador;
         initComponents();
         cargarProductosEnTabla();
+        cargarConteosEnTabla();
         // Cargar tipos en combobox
         cargarTipos();
     }
@@ -46,9 +47,13 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         botonCancelar = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
         tipo = new javax.swing.JComboBox<>();
-        tituloVentana = new javax.swing.JLabel();
-        contenedorTablaDepartamento = new javax.swing.JScrollPane();
-        tablaContenido = new javax.swing.JTable();
+        contenedorTablaProductos = new javax.swing.JScrollPane();
+        tablaProductos = new javax.swing.JTable();
+        contenedorTablaConteo = new javax.swing.JScrollPane();
+        tablaConteo = new javax.swing.JTable();
+        tituloVentana1 = new javax.swing.JLabel();
+        tituloTablaDepartamento = new javax.swing.JLabel();
+        tituloTablaConteo = new javax.swing.JLabel();
 
         setTitle("Gestion de Productos");
 
@@ -84,79 +89,126 @@ public class GestionProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        tituloVentana.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        tituloVentana.setText("Gestion de Productos");
-        tituloVentana.setToolTipText("");
-
-        tablaContenido.setModel(new javax.swing.table.DefaultTableModel(
+        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nombre", "Cantidad", "Precio"
+                "ID", "Nombre", "Cantidad", "Tipo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tablaContenido.getTableHeader().setReorderingAllowed(false);
-        tablaContenido.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaProductos.getTableHeader().setReorderingAllowed(false);
+        tablaProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaContenidoMouseClicked(evt);
+                tablaProductosMouseClicked(evt);
             }
         });
-        contenedorTablaDepartamento.setViewportView(tablaContenido);
+        contenedorTablaProductos.setViewportView(tablaProductos);
+
+        tablaConteo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Tipo", "Cantidad"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaConteo.getTableHeader().setReorderingAllowed(false);
+        tablaConteo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaConteoMouseClicked(evt);
+            }
+        });
+        contenedorTablaConteo.setViewportView(tablaConteo);
+        if (tablaConteo.getColumnModel().getColumnCount() > 0) {
+            tablaConteo.getColumnModel().getColumn(0).setResizable(false);
+            tablaConteo.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        tituloVentana1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        tituloVentana1.setText("Gestion de Productos");
+        tituloVentana1.setToolTipText("");
+
+        tituloTablaDepartamento.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        tituloTablaDepartamento.setText("Listado de Productos");
+        tituloTablaDepartamento.setToolTipText("");
+
+        tituloTablaConteo.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        tituloTablaConteo.setText("Conteo de Productos");
+        tituloTablaConteo.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNombre)
+                            .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNombre)
-                                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblPrecio)
+                                .addGap(115, 115, 115)
+                                .addComponent(lblTipo)
+                                .addGap(135, 135, 135))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblPrecio)
-                                        .addGap(115, 115, 115)
-                                        .addComponent(lblTipo)
-                                        .addGap(135, 135, 135))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tipo, 0, 206, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botonRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(tipo, 0, 191, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(contenedorTablaConteo)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(197, 197, 197)
-                        .addComponent(tituloVentana)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(contenedorTablaDepartamento)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tituloTablaDepartamento)
+                                .addGap(75, 75, 75)
+                                .addComponent(tituloVentana1))
+                            .addComponent(tituloTablaConteo))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(contenedorTablaProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tituloVentana)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tituloVentana1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(tituloTablaDepartamento)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 272, Short.MAX_VALUE)
+                .addComponent(tituloTablaConteo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contenedorTablaDepartamento, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(contenedorTablaConteo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblNombre)
@@ -175,6 +227,11 @@ public class GestionProductos extends javax.swing.JInternalFrame {
                     .addComponent(botonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(46, 46, 46)
+                    .addComponent(contenedorTablaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(244, Short.MAX_VALUE)))
         );
 
         pack();
@@ -197,9 +254,13 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         capturarDatosFormulario();
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
-    private void tablaContenidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaContenidoMouseClicked
+    private void tablaConteoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaConteoMouseClicked
 
-    }//GEN-LAST:event_tablaContenidoMouseClicked
+    }//GEN-LAST:event_tablaConteoMouseClicked
+
+    private void tablaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProductosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablaProductosMouseClicked
     
     // ================ Metodos Varios ================
     
@@ -254,6 +315,7 @@ public class GestionProductos extends javax.swing.JInternalFrame {
             );
             limpiarFormulario();
             cargarProductosEnTabla();  // Refrescar la tabla
+            cargarConteosEnTabla(); // Refrescar la tabla
         } catch (IllegalArgumentException e) {
             // Error de validación - mensaje específico
             JOptionPane.showMessageDialog(this, 
@@ -283,7 +345,7 @@ public class GestionProductos extends javax.swing.JInternalFrame {
                 "Error de Listado",
                 JOptionPane.ERROR_MESSAGE);
         }
-    }                                          
+    }
 
     /**
      * Muestra el listado de celebraciones de forma tabular.
@@ -292,7 +354,7 @@ public class GestionProductos extends javax.swing.JInternalFrame {
     */
     private void mostrarRegistrosEnTabla(Object[][] datos) {
         // Referencia: https://stackoverflow.com/questions/2732865/how-to-update-jtable
-        DefaultTableModel modelo = (DefaultTableModel) tablaContenido.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tablaProductos.getModel();
         modelo.setRowCount(0); // Limpiar tabla
         
        
@@ -301,12 +363,12 @@ public class GestionProductos extends javax.swing.JInternalFrame {
         // Recorrer array de datos
         for (Object[] fila : datos) {
             hayRegistros = true;
-            // Agregar fila: ID, Nombre, Cantidad, Precio
+            // Agregar fila: ID, Nombre, Precio, Tipo
             modelo.addRow(new Object[] {
                 fila[0],  // ID
                 fila[1],  // Nombre
-                fila[3],  // Cantidad
-                fila[2]   // Precio
+                fila[2],  // Precio
+                fila[3]   // Tipo
             });
         }
         // Desplegar fila en caso de no tener registros
@@ -314,18 +376,58 @@ public class GestionProductos extends javax.swing.JInternalFrame {
             modelo.addRow(new Object[] { "No hay productos registrados", "", "", "" });
         }
     }
+    
+    /**
+    * Carga y muestra los conteos.
+    */
+    private void cargarConteosEnTabla() {
+        try {
+            mostrarConteosEnTabla();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                "Error al listar registros: " + e.getMessage(),
+                "Error de Listado",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }  
+    
+    /**
+     * Muestra el listado de conteos de forma tabular.
+     *
+    */
+    private void mostrarConteosEnTabla() {
+        // Referencia: https://stackoverflow.com/questions/2732865/how-to-update-jtable
+        DefaultTableModel modelo = (DefaultTableModel) tablaConteo.getModel();
+        
+        // Cargar datos en 0 primero
+        modelo.setValueAt("Dulce", 0, 0);
+        modelo.setValueAt(0, 0, 1);
+        modelo.setValueAt("Salada", 1, 0);
+        modelo.setValueAt(0, 1, 1);
+        
+        // Cargar datos reales
+        int dulce = controlador.contarTipo("Dulce");
+        int salada = controlador.contarTipo("Salada");
+    
+        modelo.setValueAt(dulce, 0, 1);
+        modelo.setValueAt(salada, 1, 1);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonRegistrar;
-    private javax.swing.JScrollPane contenedorTablaDepartamento;
+    private javax.swing.JScrollPane contenedorTablaConteo;
+    private javax.swing.JScrollPane contenedorTablaProductos;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblTipo;
     private javax.swing.JTextField nombre;
     private javax.swing.JTextField precio;
-    private javax.swing.JTable tablaContenido;
+    private javax.swing.JTable tablaConteo;
+    private javax.swing.JTable tablaProductos;
     private javax.swing.JComboBox<String> tipo;
-    private javax.swing.JLabel tituloVentana;
+    private javax.swing.JLabel tituloTablaConteo;
+    private javax.swing.JLabel tituloTablaDepartamento;
+    private javax.swing.JLabel tituloVentana1;
     // End of variables declaration//GEN-END:variables
 }
