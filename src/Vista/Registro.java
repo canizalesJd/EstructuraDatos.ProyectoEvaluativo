@@ -55,7 +55,6 @@ public class Registro extends javax.swing.JInternalFrame {
 
         lblNombre.setText("Nombre");
 
-        nombre.setEnabled(false);
         nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombreActionPerformed(evt);
@@ -64,7 +63,6 @@ public class Registro extends javax.swing.JInternalFrame {
 
         lblPrecio.setText("Precio");
 
-        precio.setEnabled(false);
         precio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 precioActionPerformed(evt);
@@ -73,7 +71,6 @@ public class Registro extends javax.swing.JInternalFrame {
 
         lblPrecio1.setText("Cantidad");
 
-        cantidad.setEnabled(false);
         cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cantidadActionPerformed(evt);

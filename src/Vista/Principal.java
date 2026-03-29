@@ -1,4 +1,5 @@
 package Vista;
+import Controlador.Controlador;
 
 /*
  * Universidad Estatal a Distancia (UNED)
@@ -12,7 +13,8 @@ package Vista;
 public class Principal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Principal.class.getName());
-
+    private final Controlador controlador = new Controlador();
+    
     /**
      * Creates new form Principal
      */
@@ -29,7 +31,7 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         Menu = new javax.swing.JMenu();
         RegistrarMenuItem = new javax.swing.JMenuItem();
@@ -37,23 +39,33 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 822, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 469, Short.MAX_VALUE)
         );
 
         Menu.setText("Menu");
 
         RegistrarMenuItem.setText("Registrar Productos");
+        RegistrarMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistrarMenuItemActionPerformed(evt);
+            }
+        });
         Menu.add(RegistrarMenuItem);
 
         ListarMenuItem.setText("Listar Productos");
+        ListarMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarMenuItemActionPerformed(evt);
+            }
+        });
         Menu.add(ListarMenuItem);
 
         jMenuBar1.add(Menu);
@@ -64,15 +76,27 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(escritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(escritorio)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void RegistrarMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarMenuItemActionPerformed
+        Registro registro = new Registro(controlador);
+        escritorio.add(registro);
+        registro.show();  
+    }//GEN-LAST:event_RegistrarMenuItemActionPerformed
+
+    private void ListarMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarMenuItemActionPerformed
+        Listar listar = new Listar(controlador);
+        escritorio.add(listar);
+        listar.show();  
+    }//GEN-LAST:event_ListarMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -103,7 +127,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ListarMenuItem;
     private javax.swing.JMenu Menu;
     private javax.swing.JMenuItem RegistrarMenuItem;
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }
